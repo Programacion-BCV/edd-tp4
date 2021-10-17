@@ -1,4 +1,4 @@
-package com.programacion_bcd.ejercicio1;
+package com.programacion_bcd.ejercicio1_2;
 
 import ar.edu.uner.fcad.ed.arbolesbinariosyheaps.NodoArbolBinario;
 import ar.edu.uner.fcad.ed.edlineales.ListaEnlazadaNoOrdenada;
