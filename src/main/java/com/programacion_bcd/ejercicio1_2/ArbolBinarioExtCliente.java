@@ -12,16 +12,18 @@ public class ArbolBinarioExtCliente {
         NodoArbolBinario<Integer> nodo4 = new NodoArbolBinario<>(4);
         NodoArbolBinario<Integer> nodo5 = new NodoArbolBinario<>(5);
         NodoArbolBinario<Integer> nodo6 = new NodoArbolBinario<>(6);
+        NodoArbolBinario<Integer> nodo7 = new NodoArbolBinario<>(7);
 
         arbol.agregarHijoIzquierdo(null, nodo1);
 
         arbol.agregarHijoIzquierdo(nodo1, nodo2);
         arbol.agregarHijoDerecho(nodo1, nodo3);
-        arbol.agregarHijoIzquierdo(nodo3, nodo4);
-        arbol.agregarHijoDerecho(nodo3, nodo5);
-        arbol.agregarHijoIzquierdo(nodo5, nodo6);
-        System.out.println(arbol.hojas());
+        arbol.agregarHijoDerecho(nodo2, nodo4);
+        arbol.agregarHijoIzquierdo(nodo3, nodo5);
+        arbol.agregarHijoDerecho(nodo3, nodo6);
+        arbol.agregarHijoIzquierdo(nodo5, nodo7);
+
+        System.out.println(arbol.profundidad());
 
     }
-
 }

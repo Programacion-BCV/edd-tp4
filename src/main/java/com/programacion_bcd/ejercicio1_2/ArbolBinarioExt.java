@@ -24,11 +24,11 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
         NodoArbolBinario<T> nodoActual;
         while (!cola.isEmpty()) {
             nodoActual = cola.getFront();
-            if (nodoActual.tieneHijoDerecho()) {
-                cola.enqueue(nodoActual.getHijoDerecho());
-            }
             if (nodoActual.tieneHijoIzquierdo()) {
                 cola.enqueue(nodoActual.getHijoIzquierdo());
+            }
+            if (nodoActual.tieneHijoDerecho()) {
+                cola.enqueue(nodoActual.getHijoDerecho());
             }
 
             cola.dequeue();
@@ -46,11 +46,11 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
         NodoArbolBinario<T> nodoActual;
         while (!cola.isEmpty()) {
             nodoActual = cola.getFront();
-            if (nodoActual.tieneHijoDerecho()) {
-                cola.enqueue(nodoActual.getHijoDerecho());
-            }
             if (nodoActual.tieneHijoIzquierdo()) {
                 cola.enqueue(nodoActual.getHijoIzquierdo());
+            }
+            if (nodoActual.tieneHijoDerecho()) {
+                cola.enqueue(nodoActual.getHijoDerecho());
             }
             if (this.noHijos(nodoActual)) {
                 retorno.addToRear(nodoActual);
@@ -71,13 +71,13 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
         NodoArbolBinario<T> nodoActual;
         while (!cola.isEmpty()) {
             nodoActual = cola.getFront();
-            if (nodoActual.tieneHijoDerecho()) {
-                cola.enqueue(nodoActual.getHijoDerecho());
-            }
             if (nodoActual.tieneHijoIzquierdo()) {
                 cola.enqueue(nodoActual.getHijoIzquierdo());
             }
-            if (this.noHijos(nodoActual) && this.padre(nodoActual) != null) {
+            if (nodoActual.tieneHijoDerecho()) {
+                cola.enqueue(nodoActual.getHijoDerecho());
+            }
+            if (!this.noHijos(nodoActual) && this.padre(nodoActual) != null) {
                 retorno.addToRear(nodoActual);
             }
             cola.dequeue();
@@ -87,49 +87,72 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
 
     @Override
     public int altura(NodoArbolBinario<T> nodo) {
-        return 0;
+        int alturaAux = 0;
+
+        int padres, hijos;
+        ColaPorEnlaces<NodoArbolBinario<T>> cola = new ColaPorEnlaces<>();
+        cola.enqueue(nodo);
+        NodoArbolBinario<T> nodoActual;
+        padres = 1;
+        hijos = 0;
+        while (!cola.isEmpty()) {
+            for (int i = 0; i < padres; i++) {
+                nodoActual = cola.getFront();
+                if (nodoActual.tieneHijoIzquierdo()) {
+                    cola.enqueue(nodoActual.getHijoIzquierdo());
+                    hijos++;
+                }
+                if (nodoActual.tieneHijoDerecho()) {
+                    cola.enqueue(nodoActual.getHijoDerecho());
+                    hijos++;
+                }
+                cola.dequeue();
+            }
+            if (hijos > 0) {
+                alturaAux++;
+                padres = hijos;
+                hijos = 0;
+            }
+        }
+        return alturaAux;
     }
 
     @Override
     public int profundidad(NodoArbolBinario<T> nodo) {
-        return 0;
+        NodoArbolBinario<T> nodoAux;
+        nodoAux = this.obtenerNodo(nodo, this.raiz);
+        if (nodoAux.equals(this.raiz)) {
+            return 0;
+        } else {
+            int profundidadAux = 0;
+            while (this.padre(nodoAux) != null) {
+                profundidadAux++;
+                nodoAux = this.padre(nodoAux);
+            }
+            return profundidadAux;
+        }
     }
 
     @Override
     public int altura() {
-        return 0;
+        return altura(this.raiz);
     }
 
     @Override
     public int profundidad() {
-        return 0;
+        int deep = 0;
+        ListaEnlazadaNoOrdenada<NodoArbolBinario<T>> hojas = this.hojas();
+        while (!hojas.isEmpty()) {
+            if (deep < this.profundidad(hojas.first())) {
+                deep = this.profundidad(hojas.first());
+            }
+            System.out.println("Removido: " + hojas.removeFirst());
+        }
+
+        return deep;
     }
 
     public boolean noHijos(NodoArbolBinario<T> nodo) {
         return !nodo.tieneHijoIzquierdo() && !nodo.tieneHijoDerecho();
     }
-
-    /*  public ColaPorEnlaces<NodoArbolBinario<T>> arbolEncolado() {
-
-          ColaPorEnlaces<NodoArbolBinario<T>> cola = new ColaPorEnlaces<>();
-          cola.enqueue(this.raiz);
-          NodoArbolBinario<T> copiaFront = cola.getFront();
-          NodoArbolBinario<T> nodoActual;
-          while (!cola.isEmpty()) {
-              nodoActual = cola.getFront();
-              if (nodoActual.tieneHijoDerecho()) {
-                  cola.enqueue(nodoActual.getHijoDerecho());
-              }
-              if (nodoActual.tieneHijoIzquierdo()) {
-                  cola.enqueue(nodoActual.getHijoIzquierdo());
-              }
-              cola.dequeue();
-          }
-          this.resetRaiz();
-      }
-  */
-    public void resetRaiz(NodoArbolBinario<T> nodo) {
-        this.raiz = nodo;
-    }
-
 }
