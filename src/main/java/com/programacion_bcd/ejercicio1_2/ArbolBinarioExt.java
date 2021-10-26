@@ -55,7 +55,6 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
             if (this.noHijos(nodoActual)) {
                 retorno.addToRear(nodoActual);
             }
-            System.out.println(cola.getFront());
             cola.dequeue();
         }
         return retorno;
@@ -87,6 +86,11 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
 
     @Override
     public int altura(NodoArbolBinario<T> nodo) {
+
+        if (this.vacio()) {
+            throw new IllegalStateException("Arbol Vacio");
+        }
+
         int alturaAux = 0;
 
         int padres, hijos;
@@ -146,7 +150,7 @@ public class ArbolBinarioExt<T> extends ArbolBinario<T> implements ArbolBinarioE
             if (deep < this.profundidad(hojas.first())) {
                 deep = this.profundidad(hojas.first());
             }
-            System.out.println("Removido: " + hojas.removeFirst());
+            hojas.removeFirst();
         }
 
         return deep;

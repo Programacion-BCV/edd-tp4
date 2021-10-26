@@ -23,7 +23,16 @@ public class ArbolBinarioExtCliente {
         arbol.agregarHijoDerecho(nodo3, nodo6);
         arbol.agregarHijoIzquierdo(nodo5, nodo7);
 
-        System.out.println(arbol.profundidad());
+        System.out.println(
+                "Cantidad de elementos en la estructura: " + arbol.size());
+        System.out.println("Nodos hoja: " + arbol.hojas());
+        System.out.println("Nodos internos: " + arbol.internos());
+        System.out.println("La altura del nodo7 es de: " + arbol.altura(nodo7));
+        System.out.println(
+                "La profundidad del nodo2 es de: " + arbol.profundidad(nodo2));
+        System.out.println("La altura del arbol es de: " + arbol.altura());
+        System.out.println(
+                "La profundidad del arbol es de: " + arbol.profundidad());
 
     }
 }
