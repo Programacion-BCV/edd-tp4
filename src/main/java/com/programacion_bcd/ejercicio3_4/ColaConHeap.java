@@ -3,19 +3,17 @@ package com.programacion_bcd.ejercicio3_4;
 import ar.edu.uner.fcad.ed.arbolesbinariosyheaps.Heap;
 import ar.edu.uner.fcad.ed.edlineales.colas.Cola;
 
-public class ColaConHeap <T extends Comparable<? super T>> implements Cola<T> {
+public class ColaConHeap<T extends Comparable<? super T>> implements Cola<T> {
 
     protected Heap<NodoColaHeap<T>> heap;
-    protected NodoColaHeap<T> ultimoNodo;
-    protected int capacidad;
 
-    public ColaConHeap(){
+    public ColaConHeap() {
         this.heap = new Heap();
     }
 
     @Override
     public boolean isEmpty() {
-       return this.ultimoNodo == null;
+        return this.heap == null;
     }
 
     @Override
@@ -25,24 +23,22 @@ public class ColaConHeap <T extends Comparable<? super T>> implements Cola<T> {
 
     @Override
     public T getFront() {
-        return null;
+        return this.heap.findMin().valor;
     }
 
     @Override
     public void dequeue() {
-
+        this.heap.removeMin();
     }
 
     @Override
     public void enqueue(T t) {
-       NodoColaHeap<T> nuevoNodo = new NodoColaHeap<>(t);
-        if (isEmpty()){
+        NodoColaHeap<T> nuevoNodo = new NodoColaHeap<>(t);
+        if (isEmpty()) {
             this.heap.addElement(nuevoNodo);
         } else {
-            
+            this.heap.addElement(nuevoNodo);
         }
-
-
     }
 
     @Override
@@ -52,8 +48,10 @@ public class ColaConHeap <T extends Comparable<? super T>> implements Cola<T> {
 
     @Override
     public String toString() {
-        return "ColaConHeap{" +
-                "heap=" + heap +
-                '}';
+        String resultado = "";
+        while (!heap.isEmpty()) {
+            resultado += "[ " + heap.removeMin().valor + " ] ";
+        }
+        return resultado;
     }
 }
