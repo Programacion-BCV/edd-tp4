@@ -16,6 +16,8 @@ public class ColaPrioridadCliente {
         colaPrioridad.insert(0, 80);
         colaPrioridad.insert(1, 4);
 
+        System.out.println(colaPrioridad);
+
         System.out.println("La cantidad de nodos en la cola es de : " +
                            colaPrioridad.size());
 
